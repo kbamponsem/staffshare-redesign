@@ -1,0 +1,22 @@
+.container {
+    background: var(--form-container-bg);
+    border: 1px solid var(--form-border-color);
+    border-radius: var(--form-border-radius);
+    width: 30rem;
+    padding: 5rem 3rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--primary-foreground);
+}
+
+.subtitle {
+    font-size: 0.8rem;
+    color: var(--secondary-foreground);
+    margin-bottom: 1.6rem;
+}
