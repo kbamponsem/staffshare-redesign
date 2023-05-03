@@ -103,3 +103,12 @@ main.formWrapper {
   text-decoration: underline;
   cursor: pointer;
 }
+
+@media screen and (max-width: 700px) {
+  .headLiner {
+    font-size: 0.55rem;
+  }
+  .headLiner .sider {
+    width: 28%;
+  }
+}

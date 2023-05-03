@@ -12,6 +12,7 @@
   --form-container-bg: #171717;
   --form-border-color: #4a4a4a;
   --form-border-radius: 6px;
+  --mobile-max-width: 700px;
 }
 
 * {
