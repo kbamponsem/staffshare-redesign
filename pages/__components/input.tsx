@@ -7,12 +7,14 @@ type InputProps = {
   title: string;
   props?: any;
   value?: string;
+  noTitle?: boolean;
   setValue?: (e: any) => void;
 };
 
 export default function Input({
   type,
   title,
+  noTitle,
   required = false,
   placeholder,
   value,
@@ -28,10 +30,12 @@ export default function Input({
   return (
     <>
       <div className={styles.inputWrapper}>
-        <div className={styles.inputTitle}>
-          {title}
-          {requiredValue && <span className={styles.inputRequired}>*</span>}
-        </div>
+        {noTitle ? null : (
+          <div className={styles.inputTitle}>
+            {title}
+            {requiredValue && <span className={styles.inputRequired}>*</span>}
+          </div>
+        )}
         <div>
           <input
             value={value}

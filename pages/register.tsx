@@ -4,6 +4,9 @@ import Button, { Already, AlternativeLogin } from "./__components/button";
 import Input from "./__components/input";
 import Link from "next/link";
 import { useState } from "react";
+import { connectAPI } from "./__shared/services";
+import { useRouter } from "next/router";
+import { headInfo } from ".";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -11,14 +14,61 @@ export default function Register() {
   const [retypePassword, setRetypePassword] = useState("");
   const [username, setUsername] = useState("");
 
+  const [promptMessage, setPromptMessage] = useState("");
+  const [showPrompt, setShowPrompt] = useState(false);
+  const [promptType, setPromptType] = useState<"success" | "error" | "warning">(
+    "success"
+  );
+  const router = useRouter();
+
   const handleRegister = async () => {
-    console.log(email, password, retypePassword, username);
+    // Check if password and retype password are the same
+    if (password !== retypePassword) {
+      setShowPrompt(true);
+      setPromptMessage("Password and retype password are not the same");
+      setPromptType("error");
+      return;
+    }
+
+    // Check if email is valid
+    const emailRegex = new RegExp(
+      "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$"
+    );
+
+    if (!emailRegex.test(email)) {
+      setShowPrompt(true);
+      setPromptMessage("Email is not valid");
+      setPromptType("error");
+      return;
+    }
+
+    setShowPrompt(false);
+    const res = await connectAPI("/register", "POST", {
+      email,
+      password,
+      username,
+    });
+
+    console.log("Results", res);
+    if (res.status === 200) {
+      // Redirect to confirmation page
+      router.push(`/confirmation?email=${email}`);
+    } else {
+      setShowPrompt(true);
+      setPromptMessage(res.message);
+      setPromptType("error");
+    }
   };
 
   return (
     <>
+      {headInfo({ subinfo: "Register your StaffShare account" })}
       <main className={styles.formWrapper}>
         <FormContainer
+          promptMessage={promptMessage}
+          showPrompt={showPrompt}
+          promptType={promptType}
+          setShowPrompt={setShowPrompt}
           onSubmit={handleRegister}
           title="Create Your StaffShare Account"
         >

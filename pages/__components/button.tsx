@@ -2,19 +2,29 @@ import Link from "next/link";
 import styles from "../../styles/Commons.module.css";
 import { FcGoogle } from "react-icons/fc";
 import { SiMusescore } from "react-icons/si";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
 type ButtonProps = {
   children: React.ReactNode | string;
   onClick?: () => void;
+  bgColor?: string;
+  className?: string;
 };
-export default function Button({ children, onClick }: ButtonProps) {
+export default function Button({
+  children,
+  onClick,
+  bgColor,
+  className,
+}: ButtonProps) {
   return (
     <button
       onClick={(e) => {
         e.preventDefault();
         if (onClick) onClick();
       }}
-      className={styles.button}
+      className={`${styles.button} ${className}`}
+      style={{ backgroundColor: bgColor }}
     >
       {children}
     </button>
@@ -38,12 +48,17 @@ const HeadLiner = ({ children }: HeadLinerProps) => {
 
 // Or section which contains alternative login for Google and MuseScore
 export const AlternativeLogin = () => {
+  const router = useRouter();
   return (
     <>
       <div className={styles.alternativeLogin}>
         <HeadLiner> Or Continue With </HeadLiner>
         <div className={styles.alternativeLoginButtons}>
-          <Button>
+          <Button
+            onClick={async () => {
+              await signIn("google", { callbackUrl: "/dashboard" });
+            }}
+          >
             <FcGoogle size={20} className={styles.icon} />
             <div>Google</div>
           </Button>

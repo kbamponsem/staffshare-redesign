@@ -29,8 +29,7 @@ main.formWrapper {
 .inputWrapper .inputTitle {
   color: var(--primary-foreground);
   margin-bottom: 0.4rem;
-  font-size: 0.7rem;
-  font-weight: 100;
+  font-size: 0.9rem;
 }
 
 .inputWrapper .inputTitle .inputRequired {
@@ -104,11 +103,70 @@ main.formWrapper {
   cursor: pointer;
 }
 
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--primary-foreground);
+}
+
+.logo .icon {
+  margin-right: 0.5rem;
+  background-color: var(--logo-color);
+  padding: 0.1rem;
+  border-radius: 0.4rem;
+}
+
+.logo .text {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.prompt {
+  color: var(--primary-foreground);
+  font-size: 0.8rem;
+  font-weight: 200;
+  margin-top: 1.5rem;
+  display: flex;
+  align-self: center;
+  padding: 0.6rem 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid;
+  border-radius: var(--form-border-radius);
+}
+
+.prompt.error {
+  border-color: #cb1b1b !important;
+  background-color: rgba(255, 6, 6, 0.257) !important;
+}
+
+.prompt.success {
+  border-color: #3e8f59 !important;
+  background-color: rgba(62, 143, 89, 0.257) !important;
+}
+
+/* ------------------ */
+/* Media Queries */
+
 @media screen and (max-width: 700px) {
   .headLiner {
     font-size: 0.55rem;
   }
   .headLiner .sider {
     width: 28%;
+  }
+  .logo .icon {
+    margin-right: 0;
+  }
+
+  .logo .text {
+    display: none;
+  }
+
+  .prompt {
+    font-size: 0.7rem;
   }
 }
