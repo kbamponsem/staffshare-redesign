@@ -10,6 +10,13 @@ export const connectAPI = async (url: string, method: string, body?: any) => {
     });
     return { status: response.status, data: response.data };
   } catch (error: any) {
+    console.log(error);
+    if (error.code === "ERR_NETWORK") {
+      return {
+        message: "Internal Server Error",
+      };
+    }
+
     console.log(error.response.data);
     return {
       message: error.response.data.message,

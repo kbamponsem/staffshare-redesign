@@ -88,11 +88,11 @@ const InfoSection = () => {
   );
 };
 
-const JoinTheCommunity = () => {
+const JoinTheCommunity = ({ className }: { className?: string }) => {
   const router = useRouter();
   return (
     <Button
-      className={styles.heroButton}
+      className={`${styles.heroButton} ${className}`}
       bgColor="#5B716D"
       onClick={() => {
         router.push("/register");
@@ -122,11 +122,12 @@ const Annoncement = () => {
 
 type ConnectionProps = {
   icon: IconType;
+  className?: string;
 };
-const Connection = ({ icon }: ConnectionProps) => {
+const Connection = ({ icon, className }: ConnectionProps) => {
   return (
     <>
-      <div className={styles.connection}>{icon({size: 40})}</div>
+      <div className={styles.connection}>{icon({ size: 40, className })}</div>
     </>
   );
 };
@@ -135,7 +136,7 @@ const Footer = () => {
   return (
     <>
       <footer className={styles.footer}>
-        <Logo className={styles.logo} />
+        <Logo className={styles.logoWrapper} />
         <div className={styles.connectionSection}>
           <div>
             <h3>Let's connect</h3>
@@ -169,8 +170,10 @@ export default function Home() {
               <br />
               We care about your music❤️.️
             </p>
-
-            <JoinTheCommunity />
+            <div className={styles.mobileImage}>
+              <Image src={HeroImage} alt="Hero" className={styles.heroImage} />
+            </div>
+            <JoinTheCommunity className={styles.mainHero} />
           </div>
           <div className={styles.imageWrapper}>
             <Image src={HeroImage} alt="Hero" className={styles.heroImage} />

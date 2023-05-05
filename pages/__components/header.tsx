@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <>
       <header className={styles.header}>
-        <Logo />
+        <Logo mobileShowText={false} />
         <Links />
       </header>
     </>

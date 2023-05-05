@@ -18,6 +18,8 @@ export default function Login() {
     "success"
   );
 
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
 
   const handleLoginRouting = (data: {
@@ -39,12 +41,11 @@ export default function Login() {
   };
   const handleLogin = async () => {
     setShowPrompt(false);
+    setLoading(true);
     const res = await connectAPI("/login", "POST", {
       email,
       password,
     });
-
-    console.log("Results", res);
 
     if (res.status === 200) {
       console.log("Login success");
@@ -54,11 +55,12 @@ export default function Login() {
       setPromptMessage(res.message);
       setPromptType("error");
       setShowPrompt(true);
+      setLoading(false);
     }
   };
   return (
     <>
-      {/* {headInfo({ subinfo: "Login to your StaffShare account" })} */}
+      <title>Login to your StaffShare account</title>
       <main className={styles.formWrapper}>
         <FormContainer
           promptMessage={promptMessage}
@@ -74,7 +76,7 @@ export default function Login() {
             title="Email/Username"
             required
             type="email"
-            placeholder="Email"
+            placeholder="Enter your email or username"
           />
           <Input
             value={password}
@@ -82,7 +84,7 @@ export default function Login() {
             title="Password"
             required={true}
             type="password"
-            placeholder="Password"
+            placeholder="Enter your password"
           />
 
           <Button onClick={handleLogin}>Login</Button>

@@ -4,29 +4,33 @@ import { FcGoogle } from "react-icons/fc";
 import { SiMusescore } from "react-icons/si";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import { VscLoading } from "react-icons/vsc";
 
 type ButtonProps = {
   children: React.ReactNode | string;
   onClick?: () => void;
   bgColor?: string;
   className?: string;
+  loading?: boolean;
+  inactive?: boolean;
 };
 export default function Button({
   children,
   onClick,
   bgColor,
   className,
+  loading = false,
 }: ButtonProps) {
   return (
     <button
       onClick={(e) => {
         e.preventDefault();
-        if (onClick) onClick();
+        if (onClick && !loading) onClick();
       }}
       className={`${styles.button} ${className}`}
       style={{ backgroundColor: bgColor }}
     >
-      {children}
+      {loading ? <VscLoading className={styles.spinner} /> : children}
     </button>
   );
 }

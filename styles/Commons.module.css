@@ -124,8 +124,8 @@ main.formWrapper {
 
 .prompt {
   color: var(--primary-foreground);
-  font-size: 0.8rem;
-  font-weight: 200;
+  font-size: 0.9rem;
+  font-weight: 500;
   margin-top: 1.5rem;
   display: flex;
   align-self: center;
@@ -161,9 +161,13 @@ main.formWrapper {
   .logo .icon {
     margin-right: 0;
   }
-
-  .logo .text {
+  .logo .text.deactivate {
     display: none;
+  }
+  .logo .text {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-left: 0.7rem;
   }
 
   .prompt {
