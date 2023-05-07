@@ -2,6 +2,7 @@ import axios, { AxiosError } from "axios";
 import { BASE_URL } from "./constants";
 
 export const connectAPI = async (url: string, method: string, body?: any) => {
+  console.log("[REQUEST]", method, url, body);
   try {
     const response = await axios({
       method,

@@ -42,21 +42,24 @@ export default function Login() {
   const handleLogin = async () => {
     setShowPrompt(false);
     setLoading(true);
-    const res = await connectAPI("/login", "POST", {
+
+    const res = await signIn("credentials", {
       email,
       password,
+      redirect: false,
     });
 
-    if (res.status === 200) {
-      console.log("Login success");
+    if (res?.ok) {
       // Set session token
-      handleLoginRouting(res.data.data);
-    } else {
-      setPromptMessage(res.message);
-      setPromptType("error");
-      setShowPrompt(true);
-      setLoading(false);
+      router.push("/dashboard");
     }
+    if (res?.error) {
+      setLoading(false);
+      setPromptMessage("Invalid email or password");
+      setShowPrompt(true);
+      setPromptType("error");
+    }
+
   };
   return (
     <>
@@ -87,7 +90,9 @@ export default function Login() {
             placeholder="Enter your password"
           />
 
-          <Button onClick={handleLogin}>Login</Button>
+          <Button loading={loading} onClick={handleLogin}>
+            Login
+          </Button>
 
           <AlternativeLogin />
           <Already to="/register" linkText="Register now">

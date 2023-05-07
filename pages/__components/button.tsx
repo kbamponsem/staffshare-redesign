@@ -4,7 +4,7 @@ import { FcGoogle } from "react-icons/fc";
 import { SiMusescore } from "react-icons/si";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-import { VscLoading } from "react-icons/vsc";
+import { RiLoader4Fill } from "react-icons/ri";
 
 type ButtonProps = {
   children: React.ReactNode | string;
@@ -18,7 +18,7 @@ export default function Button({
   children,
   onClick,
   bgColor,
-  className,
+  className = "",
   loading = false,
 }: ButtonProps) {
   return (
@@ -27,10 +27,16 @@ export default function Button({
         e.preventDefault();
         if (onClick && !loading) onClick();
       }}
-      className={`${styles.button} ${className}`}
+      className={`${styles.button} ${className} ${
+        loading ? styles.loading : ""
+      }}`}
       style={{ backgroundColor: bgColor }}
     >
-      {loading ? <VscLoading className={styles.spinner} /> : children}
+      {loading ? (
+        <RiLoader4Fill size={22} className={styles.spinner} />
+      ) : (
+        children
+      )}
     </button>
   );
 }

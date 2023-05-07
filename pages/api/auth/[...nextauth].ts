@@ -10,6 +10,30 @@ export default NextAuth({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     }),
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "email", placeholder: "jsmith" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials: any) {
+        const { email, password } = credentials;
+        const res = await connectAPI("/login", "POST", {
+          email,
+          password,
+        });
+
+        if (res.status === 200) {
+          return {
+            email: res.data.data.email,
+            username: res.data.data.username,
+            id: res.data.data.id,
+          };
+        }
+        return null;
+      },
+    }),
   ],
+
   secret: process.env.JWT_SECRET,
 });

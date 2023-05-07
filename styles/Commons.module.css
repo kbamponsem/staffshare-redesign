@@ -58,6 +58,12 @@ main.formWrapper {
   margin-right: 0.5rem;
 }
 
+.button.loading {
+  opacity: 0.5 !important;
+  background-color: red;
+  cursor: not-allowed !important;
+}
+
 .headLiner {
   display: flex;
   justify-content: space-between;
@@ -148,6 +154,10 @@ main.formWrapper {
   background-color: rgba(62, 143, 89, 0.257) !important;
 }
 
+.spinner {
+  animation: infiteAnimation 1s linear infinite;
+}
+
 /* ------------------ */
 /* Media Queries */
 
@@ -172,5 +182,16 @@ main.formWrapper {
 
   .prompt {
     font-size: 0.7rem;
+  }
+}
+
+/* ----- Animation --------- */
+
+@keyframes infiteAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

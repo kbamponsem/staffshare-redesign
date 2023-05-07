@@ -1,40 +1,9 @@
-import { useEffect, useState } from "react";
-import {
-  Session,
-  removeSession,
-  setSession as localSetSession,
-} from "./__shared/services";
+import React from "react";
+
 import Button from "./__components/button";
-import { signOut, useSession } from "next-auth/react";
-import { getSession as localGetSession } from "./__shared/services";
-import { useRouter } from "next/router";
+import { getSession, signOut, useSession } from "next-auth/react";
 
-export default function Dashboard() {
-  // Use both custom credentials session and next-auth session
-  const [session, setSession] = useState<Session>();
-  const router = useRouter();
-  const nextSession = useSession();
-
-  useEffect(() => {
-    const session = localGetSession();
-    console.log(nextSession);
-    if (nextSession.status === "authenticated") {
-      const obj: Session = {
-        type: "oauth",
-        user: {
-          email: nextSession?.data?.user?.email as string,
-          username: nextSession?.data?.user?.name as string,
-        },
-      };
-      setSession(obj);
-      localSetSession(obj);
-    } else if (session) {
-      setSession(session);
-    } else {
-      router.push("/login");
-    }
-  }, [nextSession]);
-
+export default function Dashboard({ session }: any) {
   return (
     <>
       <div>
@@ -45,13 +14,30 @@ export default function Dashboard() {
         onClick={() => {
           // Remove session
           // Remove OAuth session
-          removeSession();
-          signOut();
-          router.replace("/login");
+          signOut({ callbackUrl: "/login" });
         }}
       >
         Logout
       </Button>
     </>
   );
+}
+
+export async function getServerSideProps(context: any) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
 }
