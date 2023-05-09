@@ -24,10 +24,12 @@ export default NextAuth({
         });
 
         if (res.status === 200) {
+          const { email, id, access_token, username } = res.data.data;
           return {
-            email: res.data.data.email,
-            username: res.data.data.username,
-            id: res.data.data.id,
+            name: username,
+            email,
+            id,
+            access_token,
           };
         }
         return null;
@@ -36,4 +38,18 @@ export default NextAuth({
   ],
 
   secret: process.env.JWT_SECRET,
+  callbacks: {
+    async jwt({ token, user }) {
+      console.log("JWT - user", user);
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      console.log("SESSION - user", session, token);
+      return session;
+    },
+  },
 });

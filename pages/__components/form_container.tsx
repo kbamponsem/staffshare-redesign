@@ -5,6 +5,7 @@ type FormContainerProps = {
   children: React.ReactNode;
   title: string;
   onSubmit?: () => void;
+  onClick?: () => void;
   showPrompt: boolean;
   setShowPrompt: (show: boolean) => void;
   promptType: "success" | "error" | "warning";
@@ -21,10 +22,12 @@ export default function FormContainer({
   promptType,
   promptMessage,
   noSubtitle,
+  onClick,
 }: FormContainerProps) {
   return (
     <>
       <form
+        onClick={onClick}
         onSubmit={(e) => {
           e.preventDefault();
           if (onSubmit) onSubmit();

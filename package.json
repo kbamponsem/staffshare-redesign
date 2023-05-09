@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "cypress open"
   },
   "dependencies": {
     "@types/node": "18.16.3",

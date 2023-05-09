@@ -8,14 +8,13 @@ main.formWrapper {
 
 .input {
   width: 100%;
-  height: 2.6rem;
+  height: 2.5rem;
   border: 1px solid var(--form-border-color);
   border-radius: var(--form-border-radius);
   padding: 0 0.8rem;
   font-size: 0.9rem;
   background-color: var(--background-color);
   color: var(--primary-foreground);
-  margin-bottom: 1.2rem;
 }
 .input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 30px var(--background-color) inset !important;
@@ -24,6 +23,14 @@ main.formWrapper {
 
 .input:focus {
   outline: none;
+}
+
+.inputWrapper {
+  margin-bottom: 1rem;
+}
+
+.input.shifted {
+  padding-left: 2.5rem;
 }
 
 .inputWrapper .inputTitle {
@@ -37,8 +44,22 @@ main.formWrapper {
   color: #3e8f59;
 }
 
+.inputWithIcon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 0.8rem;
+  color: var(--secondary-foreground);
+}
+
 .button {
   width: 60%;
+  padding: 0.5rem 2rem;
   height: 2.5rem;
   border: 1px solid var(--form-border-color);
   border-radius: var(--form-border-radius);
@@ -51,7 +72,7 @@ main.formWrapper {
   justify-content: center;
   align-items: center;
   align-self: center;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 
 .button .icon {

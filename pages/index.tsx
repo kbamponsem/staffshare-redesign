@@ -15,6 +15,7 @@ import {
 import { RiTeamLine } from "react-icons/ri";
 import { IconType } from "react-icons/lib";
 import Logo from "./__components/logo";
+import { getSession } from "next-auth/react";
 
 type HeadInfoProps = {
   subinfo?: string;
@@ -185,4 +186,21 @@ export default function Home() {
       <Footer />
     </>
   );
+}
+
+export async function getServerSideProps(context: any) {
+  const session = await getSession(context);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  } else {
+    return {
+      props: {},
+    };
+  }
 }

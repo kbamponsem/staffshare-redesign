@@ -4,6 +4,7 @@ import styles from "../../styles/Commons.module.css";
 
 type LogoProps = {
   size?: number;
+  textSize?: number;
   className?: string;
   mobileShowText?: boolean;
 };
@@ -12,6 +13,7 @@ export default function Logo({
   size = 50,
   className,
   mobileShowText = true,
+  textSize = 25,
 }: LogoProps) {
   return (
     <div className={className}>
@@ -23,7 +25,12 @@ export default function Logo({
           src={AltoLogo}
           alt="AltoLogo"
         />
-        <p className={`${styles.text}  ${mobileShowText ? "" : "mobile__deactivate"}`}>
+        <p
+          style={{ fontSize: textSize }}
+          className={`${styles.text}  ${
+            mobileShowText ? "" : "mobile__deactivate"
+          }`}
+        >
           StaffShare
         </p>
       </div>

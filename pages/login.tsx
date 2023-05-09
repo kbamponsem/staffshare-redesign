@@ -59,7 +59,6 @@ export default function Login() {
       setShowPrompt(true);
       setPromptType("error");
     }
-
   };
   return (
     <>
@@ -80,6 +79,7 @@ export default function Login() {
             required
             type="email"
             placeholder="Enter your email or username"
+            wrapperStyle={inputStyle}
           />
           <Input
             value={password}
@@ -88,6 +88,7 @@ export default function Login() {
             required={true}
             type="password"
             placeholder="Enter your password"
+            wrapperStyle={inputStyle}
           />
 
           <Button loading={loading} onClick={handleLogin}>
@@ -103,3 +104,6 @@ export default function Login() {
     </>
   );
 }
+const inputStyle = {
+  marginBottom: "1.2rem",
+};

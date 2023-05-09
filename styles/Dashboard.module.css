@@ -1,0 +1,32 @@
+.dashboardHeader {
+  display: flex;
+  flex: 1;
+  border-bottom: 1px solid var(--form-border-color);
+  padding: 0.7rem 4rem;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  width: 100%;
+}
+
+.logoSection {
+  flex: 0.1;
+}
+
+.barSection {
+  flex: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 8rem;
+}
+
+.mainSection {
+  padding-top: 5rem;
+}
+
+@media screen and (max-width: 700px) {
+  .barSection {
+    display: none;
+  }
+}

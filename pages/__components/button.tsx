@@ -5,6 +5,7 @@ import { SiMusescore } from "react-icons/si";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { RiLoader4Fill } from "react-icons/ri";
+import { IconType } from "react-icons";
 
 type ButtonProps = {
   children: React.ReactNode | string;
@@ -13,6 +14,9 @@ type ButtonProps = {
   className?: string;
   loading?: boolean;
   inactive?: boolean;
+  icon?: IconType;
+  iconSize?: number;
+  style?: React.CSSProperties;
 };
 export default function Button({
   children,
@@ -20,6 +24,9 @@ export default function Button({
   bgColor,
   className = "",
   loading = false,
+  icon,
+  iconSize = 20,
+  style,
 }: ButtonProps) {
   return (
     <button
@@ -30,8 +37,13 @@ export default function Button({
       className={`${styles.button} ${className} ${
         loading ? styles.loading : ""
       }}`}
-      style={{ backgroundColor: bgColor }}
+      style={{ backgroundColor: bgColor, ...style }}
     >
+      {loading
+        ? null
+        : icon
+        ? icon({ className: styles.icon, size: iconSize })
+        : null}
       {loading ? (
         <RiLoader4Fill size={22} className={styles.spinner} />
       ) : (
