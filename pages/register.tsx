@@ -4,7 +4,7 @@ import Button, { Already, AlternativeLogin } from "./__components/button";
 import Input from "./__components/input";
 import Link from "next/link";
 import { useState } from "react";
-import { connectAPI } from "./__shared/services";
+import { connectAPI } from "./api/services";
 import { useRouter } from "next/router";
 import { headInfo } from ".";
 

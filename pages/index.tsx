@@ -27,13 +27,11 @@ export const headInfo = ({ subinfo }: HeadInfoProps) => {
         <title>StaffShare | {subinfo}</title>
         <meta name="description" content="StaffShare | Designed for You." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/staffshare.png" />
       </Head>
     </>
   );
 };
 
-// Info data
 const infoData = [
   {
     title: "Create",

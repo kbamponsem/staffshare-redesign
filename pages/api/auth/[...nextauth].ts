@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { connectAPI } from "@/pages/__shared/services";
+import { connectAPI } from "../services";
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -39,16 +39,17 @@ export default NextAuth({
 
   secret: process.env.JWT_SECRET,
   callbacks: {
-    async jwt({ token, user }) {
-      console.log("JWT - user", user);
-      if (user) {
+    async jwt({ token, user, account }) {
+      if (account) {
         token.id = user.id;
         token.email = user.email;
+        token.access_token = user.access_token;
+          console.log(token)
       }
-      return token;
+      return {...token, ...user};
     },
-    async session({ session, token }) {
-      console.log("SESSION - user", session, token);
+    async session({ session, token, user }) {
+      session.user = token
       return session;
     },
   },

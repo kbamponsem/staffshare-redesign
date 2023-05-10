@@ -1,12 +1,20 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--primary-background);
+  flex: 1;
+}
 .dashboardHeader {
   display: flex;
-  flex: 1;
+  flex: 0.1;
   border-bottom: 1px solid var(--form-border-color);
-  padding: 0.7rem 4rem;
+  padding: 0.7rem 2.5rem;
   align-items: center;
   justify-content: space-between;
-  position: fixed;
   width: 100%;
+  background-color: var(--primary-background);
 }
 
 .logoSection {
@@ -22,7 +30,38 @@
 }
 
 .mainSection {
-  padding-top: 5rem;
+  display: flex;
+  flex-direction: row;
+  flex: auto;
+  width: 100vw;
+  height: 100vh;
+}
+
+.leftPane, .bodySection {
+  padding: 0.8rem 1rem;
+}
+
+.leftPane {
+  flex: 0.15;
+  border-right: 1px solid var(--form-border-color);
+}
+.bodySection {
+  flex: auto;
+}
+
+.smallPopup {
+  border: 1px solid var(--form-border-color);
+  background-color: var(--grey-background);
+  width: 18rem;
+  position: absolute;
+  right: 0;
+  margin-right: 2rem;
+  margin-top: 1rem;
+  padding: 1rem 1rem;
+  border-radius: 0.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media screen and (max-width: 700px) {

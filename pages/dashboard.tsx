@@ -8,6 +8,9 @@ import { FaSearch } from "react-icons/fa";
 import { IoIosCloudUpload } from "react-icons/io";
 import MainSection from "./__mainsection";
 import Popup from "./__popup";
+import Head from "next/head";
+import { headInfo } from ".";
+import Sheets from "./__sheets";
 
 const DashboardSearchBar = ({ className }: { className: string }) => {
   return (
@@ -31,12 +34,14 @@ const DashboardSearchBar = ({ className }: { className: string }) => {
 export const Avatar = ({
   image,
   username,
+  onClick,
 }: {
   image?: string;
   username?: string;
+  onClick?: () => any;
 }) => {
   return (
-    <div className={"avatar"}>
+    <div id="avatar" onClick={onClick} className={"avatar"}>
       {image ? (
         <img
           style={{ maxWidth: 40, maxHeight: 40, borderRadius: "50%" }}
@@ -49,12 +54,45 @@ export const Avatar = ({
     </div>
   );
 };
-const DashboardHeader = ({
-  setOpened,
+
+const SmallPopup = ({
   opened,
+  setOpened,
 }: {
   opened: boolean;
   setOpened: (o: boolean) => any;
+}) => {
+  return opened ? (
+    <div
+      id="smallPopup"
+      onClick={(e: any) => {
+        if (e.target !== e.currentTarget) return;
+        setOpened(false);
+      }}
+      className={styles.smallPopup}
+    >
+      <Button
+        style={{ margin: 0 }}
+        onClick={() => {
+          signOut({ callbackUrl: "/login" });
+        }}
+      >
+        Logout
+      </Button>
+    </div>
+  ) : null;
+};
+
+const DashboardHeader = ({
+  setOpened,
+  setSmallOpened,
+  opened,
+  smallOpened,
+}: {
+  opened: boolean;
+  setOpened: (o: boolean) => any;
+  smallOpened: boolean;
+  setSmallOpened: (o: boolean) => any;
 }) => {
   const { data } = useSession();
   return (
@@ -76,9 +114,13 @@ const DashboardHeader = ({
       </div>
       <div className={styles.avatarSection}>
         <Avatar
+          onClick={() => {
+            setSmallOpened(!smallOpened);
+          }}
           image={data?.user?.image as string}
           username={data?.user?.name as string}
         />
+        <SmallPopup opened={smallOpened} setOpened={setSmallOpened} />
       </div>
     </div>
   );
@@ -86,16 +128,24 @@ const DashboardHeader = ({
 
 export default function Dashboard() {
   const [openedUpload, setOpenedUpload] = React.useState(false);
+  const [smallPopupOpened, setSmallPopupOpened] = React.useState(false);
+  console.log(smallPopupOpened);
+  const session = useSession();
   return (
     <>
-      <title>Sheets</title>
-      <DashboardHeader opened={openedUpload} setOpened={setOpenedUpload} />
-      <MainSection />
-      <Popup
-        title="Upload Sheet"
-        opened={openedUpload}
-        setOpened={setOpenedUpload}
-      />
+      {headInfo({ subinfo: "Sheets" })}
+      <div className={styles.dashboard}>
+        <DashboardHeader
+          smallOpened={smallPopupOpened}
+          setSmallOpened={setSmallPopupOpened}
+          opened={openedUpload}
+          setOpened={setOpenedUpload}
+        />
+        <MainSection>
+          <Sheets session={session} />
+        </MainSection>
+        <Popup opened={openedUpload} setOpened={setOpenedUpload} />
+      </div>
     </>
   );
 }

@@ -36,5 +36,5 @@ next-env.d.ts
 
 .env
 
-*.Zone.Identifier
+*Zone.Identifier
 /cypress

@@ -3,7 +3,7 @@ import Input from "./__components/input";
 import styles from "../styles/Commons.module.css";
 import Button from "./__components/button";
 import { useState } from "react";
-import { connectAPI } from "./__shared/services";
+import { connectAPI } from "./api/services";
 import { Router, useRouter } from "next/router";
 import { headInfo } from ".";
 

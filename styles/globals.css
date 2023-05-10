@@ -13,6 +13,7 @@
   --logo-color: #5b716d;
 
   --prompt-background-color: #323232;
+  --grey-background: #272727;
 }
 
 * {
@@ -49,6 +50,7 @@ a {
   justify-content: center;
   align-items: center;
   font-size: x-large;
+  cursor: pointer;
 }
 
 .popup {
@@ -63,6 +65,40 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.popup .uploader {
+  display: none;
+}
+
+.uploader-btn {
+  width: fit-content;
+  background-color: var(--grey-background);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  color: var(--primary-foreground);
+  cursor: pointer;
+  outline: 0;
+  border: 1px solid var(--form-border-color);
+}
+
+.uploader-text {
+  font-weight: 200;
+  font-size: 0.8rem;
+  margin-left: 0.4rem;
+}
+
+.no-sheet {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.no-sheet .image {
+  width: 20rem;
+  height: 20rem;
 }
 
 @media screen and (max-width: 700px) {
