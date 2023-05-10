@@ -11,7 +11,6 @@ export default function MainSection({
   return (
     <div className={styles.mainSection}>
       <div className={styles.leftPane}>
-        <p>{JSON.stringify(data?.user?.email)}</p>
       </div>
       <div className={styles.bodySection}>{children}</div>
     </div>

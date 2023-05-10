@@ -42,7 +42,7 @@
 }
 
 .leftPane {
-  flex: 0.15;
+  flex: 0.25;
   border-right: 1px solid var(--form-border-color);
 }
 .bodySection {

@@ -3,6 +3,8 @@ import { connectAPI } from "./api/services";
 import useSWR from "swr";
 import Image from "next/image";
 import NoSheets from "../images/empty_sheets.svg";
+import Loader from "./__shared/loader";
+
 
 const fetcher = ({
   url,
@@ -23,7 +25,7 @@ export default function Sheets({ session }: { session: any }) {
   );
 
   if (error) return <div>{JSON.stringify(error)} </div>;
-  if (!data) return <div>Loading...</div>;
+  if (!data) return <Loader />;
   if (data && data.length === 0)
     return (
       <div className="no-sheet">
@@ -42,8 +44,8 @@ export default function Sheets({ session }: { session: any }) {
 
 const Sheet = ({ pdf }: { pdf?: string }) => {
   return (
-    <div>
-      <iframe src={pdf} />
+    <div className="sheet">
+      <iframe className="sheet-page" src={pdf} />
     </div>
   );
 };

@@ -79,7 +79,6 @@ a {
   color: var(--primary-foreground);
   cursor: pointer;
   outline: 0;
-  border: 1px solid var(--form-border-color);
 }
 
 .uploader-text {
@@ -88,7 +87,8 @@ a {
   margin-left: 0.4rem;
 }
 
-.no-sheet {
+.no-sheet,
+.loader {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -101,8 +101,42 @@ a {
   height: 20rem;
 }
 
+.loader .spinner {
+  animation: infiteAnimation 1s linear infinite;
+}
+
+.sheet {
+  width: 13rem;
+  height: 18rem;
+  border-radius: 0.4rem;
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sheet .sheet-page {
+  overflow: hidden;
+  pointer-events: none;
+  width: inherit;
+  height: inherit;
+  outline: 0;
+  border: 0;
+}
+
 @media screen and (max-width: 700px) {
   .mobile__deactivate {
     display: none;
+  }
+}
+
+/* ----- Animation --------- */
+
+@keyframes infiteAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

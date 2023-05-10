@@ -168,6 +168,8 @@ export default function Popup({ opened, setOpened }: PopupProps) {
                 setPromptMessage("Sheet music uploaded successfully");
                 setShowPrompt(true);
                 setPromptType("success");
+
+                setOpened(false);
               } catch (e: any) {
                 console.log(e);
                 setUploading(false);
