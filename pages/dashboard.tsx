@@ -19,7 +19,7 @@ const DashboardSearchBar = ({ className }: { className: string }) => {
         justifySelf: "start",
         marginRight: "2rem",
       }}
-      inputStyle={{ width: "100%" }}
+      inputStyle={{ width: "100%", backgroundColor: "#272727" }}
       icon={FaSearch}
       type={"text"}
       className={className}
@@ -88,6 +88,7 @@ export default function Dashboard() {
   const [openedUpload, setOpenedUpload] = React.useState(false);
   return (
     <>
+      <title>Sheets</title>
       <DashboardHeader opened={openedUpload} setOpened={setOpenedUpload} />
       <MainSection />
       <Popup

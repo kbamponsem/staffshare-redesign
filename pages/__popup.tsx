@@ -17,13 +17,12 @@ export default function Popup({ title, opened, setOpened }: PopupProps) {
 
   return opened ? (
     <div
-      onClick={(e) => {
-        // Check if the user clicked on the popup
-        // If so, do nothing
-        // Otherwise, close the popup
-
+      onClick={(e: any) => {
         if (e.target !== e.currentTarget) return;
         setOpened(false);
+      }}
+      onKeyDown={(e: any) => {
+        if (e.key === "Escape") setOpened(false);
       }}
       className="popup"
     >
@@ -35,6 +34,7 @@ export default function Popup({ title, opened, setOpened }: PopupProps) {
         title="Upload Sheet Music"
       >
         <Input
+          autoFocus
           required
           title="Title"
           type="text"

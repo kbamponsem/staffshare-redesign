@@ -14,6 +14,7 @@ type InputProps = {
   className?: string;
   wrapperStyle?: React.CSSProperties;
   inputStyle?: React.CSSProperties;
+  autoFocus?: boolean;
 };
 
 export default function Input({
@@ -28,6 +29,7 @@ export default function Input({
   wrapperStyle,
   inputStyle,
   className,
+  autoFocus = false,
 }: InputProps) {
   const [requiredValue, setRequiredValue] = useState(required);
 
@@ -46,6 +48,7 @@ export default function Input({
       <div className={styles.inputWithIcon}>
         {icon && <div className={styles.inputIcon}>{icon({})}</div>}
         <input
+          autoFocus={autoFocus}
           style={inputStyle}
           value={value}
           onChange={setValue}
