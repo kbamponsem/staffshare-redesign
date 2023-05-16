@@ -18,10 +18,13 @@ export default NextAuth({
       },
       async authorize(credentials: any) {
         const { email, password } = credentials;
-        const res = await connectAPI("/login", "POST", {
+        const res = await connectAPI("/credential_login", "POST", {
           email,
           password,
         });
+
+
+        console.log("res", res.data);
 
         if (res.status === 200) {
           const { email, id, access_token, username } = res.data.data;
@@ -32,7 +35,7 @@ export default NextAuth({
             access_token,
           };
         }
-        return null;
+        return res.data.message;
       },
     }),
   ],
@@ -44,13 +47,18 @@ export default NextAuth({
         token.id = user.id;
         token.email = user.email;
         token.access_token = user.access_token;
-          console.log(token)
       }
-      return {...token, ...user};
+      return { ...token, ...user };
     },
     async session({ session, token, user }) {
-      session.user = token
+      console.log("{session}", session, token, user);
+      session.user = token;
       return session;
     },
+  },
+  pages: {
+    error: "/login",
+    signIn: "/login",
+    signOut: "/login",
   },
 });

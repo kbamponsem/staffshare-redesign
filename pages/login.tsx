@@ -30,6 +30,7 @@ export default function Login() {
       redirect: false,
     });
 
+    console.log(res)
     if (res?.ok) {
       // Set session token
       router.push("/dashboard");

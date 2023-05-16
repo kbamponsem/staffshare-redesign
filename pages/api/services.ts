@@ -26,6 +26,7 @@ export const connectAPI = async (
       url: `${BASE_URL}${url}`,
       data: body,
       headers,
+      timeout: 5000,
     });
     return { status: response.status, data: response.data };
   } catch (error: any) {

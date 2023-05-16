@@ -95,6 +95,7 @@ const DashboardHeader = ({
   setSmallOpened: (o: boolean) => any;
 }) => {
   const { data } = useSession();
+  console.log("Session", data);
   return (
     <div className={styles.dashboardHeader}>
       <div className={styles.logoSection}>

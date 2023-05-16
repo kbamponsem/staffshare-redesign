@@ -4,7 +4,7 @@ import styles from "../styles/Commons.module.css";
 import Button from "./__components/button";
 import { useState } from "react";
 import { connectAPI } from "./api/services";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { headInfo } from ".";
 
 export default function Confirmation() {

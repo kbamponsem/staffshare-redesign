@@ -78,7 +78,10 @@ export const AlternativeLogin = () => {
         <div className={styles.alternativeLoginButtons}>
           <Button
             onClick={async () => {
-              await signIn("google", { callbackUrl: "/dashboard" });
+              let res = await signIn("google", { callbackUrl: "/dashboard" , redirect: false});
+              if (res?.error) {
+                router.push("/login");
+              }
             }}
           >
             <FcGoogle size={20} className={styles.icon} />
