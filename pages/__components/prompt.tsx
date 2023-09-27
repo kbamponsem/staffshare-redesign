@@ -8,10 +8,12 @@ type PromptProps = {
 };
 export default function Prompt({ message, type, show, setShow }: PromptProps) {
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setShow(false);
     }, 10000);
-  }, [show]);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return show ? (
     <>

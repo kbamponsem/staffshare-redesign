@@ -38,15 +38,18 @@ const fetcher = async ({
 const Empty = () => {
   return (
     <div className="no-sheet">
-      <Image className="image" alt="Empty" src={NoSheets} />
+      <Image
+        width={200}
+        height={200}
+        className="image" alt="Empty" src={NoSheets} />
       <p>No sheets found</p>
     </div>
   );
 };
-const Toolbar = () => {};
+const Toolbar = () => { };
 export default function Sheets({ session }: { session: any }) {
   const { data, error } = useSWR(
-    { url: "/sheets", access_token: session.data?.user?.access_token },
+    { url: "/sheets", access_token: session.user?.access_token },
     fetcher
   );
   if (error) return <Empty />;

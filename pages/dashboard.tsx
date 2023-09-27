@@ -8,9 +8,11 @@ import { FaSearch } from "react-icons/fa";
 import { IoIosCloudUpload } from "react-icons/io";
 import MainSection from "./__mainsection";
 import Popup from "./__popup";
-import Head from "next/head";
 import { headInfo } from ".";
 import Sheets from "./__sheets";
+import Image from "next/image";
+import { connectAPI } from "./api/services";
+import { getToken } from "next-auth/jwt";
 
 const DashboardSearchBar = ({ className }: { className: string }) => {
   return (
@@ -43,10 +45,12 @@ export const Avatar = ({
   return (
     <div id="avatar" onClick={onClick} className={"avatar"}>
       {image ? (
-        <img
-          style={{ maxWidth: 40, maxHeight: 40, borderRadius: "50%" }}
+        <Image
+          width={40}
+          height={40}
+          style={{ borderRadius: "50%" }}
           src={image}
-          alt={username}
+          alt="Avatar"
         />
       ) : (
         <div>{username?.charAt(0).toUpperCase()}</div>
@@ -161,6 +165,27 @@ export async function getServerSideProps(context: any) {
         permanent: false,
       },
     };
+  }
+
+  console.log("Session From Server", session)
+  // // Extract user information from message
+  const email = session.user?.email;
+  const oauth_id = session.user?.id;
+  // Create or update user in database
+  const { status, data } = await connectAPI("/check_oauth_user_exists", "POST", {
+    email,
+    oauth_id
+  });
+
+  if (status === 200 && !data.data) {
+    // User does not exist
+    // Redirect to onboarding page
+    return {
+      redirect: {
+        destination: "/onboarding",
+        permanent: false,
+      }
+    }
   }
 
   return {

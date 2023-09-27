@@ -1,0 +1,48 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.container {
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.welcome {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.welcome>h1, .welcome>p {
+    margin-bottom: 1rem;
+}
+
+.inputSection {
+    margin-left: 5rem;
+}
+
+.pushRight {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+@media screen and (max-width: var(--mobile-max-width)) {
+    .container {
+        flex-direction: column;
+    }
+}

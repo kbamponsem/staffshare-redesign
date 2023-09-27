@@ -1,9 +1,6 @@
 import axios from "axios";
 import { BASE_URL } from "../__shared/constants";
-import jwt from "jsonwebtoken";
-import { getSession } from "next-auth/react";
-import { JWT } from "next-auth/jwt";
-
+console.log('BASE_URL', BASE_URL);
 export const connectAPI = async (
   url: string,
   method: string,
@@ -21,13 +18,17 @@ export const connectAPI = async (
         Authorization: `Bearer ${access_token}`,
       };
     }
-    const response = await axios({
+    const request = {
       method,
       url: `${BASE_URL}${url}`,
       data: body,
       headers,
       timeout: 5000,
-    });
+    };
+
+    console.log("Request: ", request)
+
+    const response = await axios(request);
     return { status: response.status, data: response.data };
   } catch (error: any) {
     console.log(error);

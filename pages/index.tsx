@@ -138,7 +138,7 @@ const Footer = () => {
         <Logo className={styles.logoWrapper} />
         <div className={styles.connectionSection}>
           <div>
-            <h3>Let's connect</h3>
+            <h3>Let&apos;s connect</h3>
             <div className={styles.connectionWrapper}>
               {[FaInstagram, FaLinkedin].map((icon, index) => {
                 return <Connection key={index} icon={icon} />;

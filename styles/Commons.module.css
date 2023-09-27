@@ -75,6 +75,12 @@ main.formWrapper {
   margin-top: 1.5rem;
 }
 
+
+
+.noMarginButton {
+  margin: 0;
+}
+
 .button .icon {
   margin-right: 0.5rem;
 }

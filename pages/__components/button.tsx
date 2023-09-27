@@ -17,6 +17,7 @@ type ButtonProps = {
   icon?: IconType;
   iconSize?: number;
   style?: React.CSSProperties;
+  noMargin?: boolean;
 };
 export default function Button({
   children,
@@ -27,6 +28,7 @@ export default function Button({
   icon,
   iconSize = 20,
   style,
+  noMargin = false,
 }: ButtonProps) {
   return (
     <button
@@ -34,16 +36,15 @@ export default function Button({
         e.preventDefault();
         if (onClick && !loading) onClick();
       }}
-      className={`${styles.button} ${className} ${
-        loading ? styles.loading : ""
-      }}`}
+      className={`${styles.button} ${className} ${loading ? styles.loading : ""
+        }} ${noMargin ? styles.noMargin : ""}`}
       style={{ backgroundColor: bgColor, ...style }}
     >
       {loading
         ? null
         : icon
-        ? icon({ className: styles.icon, size: iconSize })
-        : null}
+          ? icon({ className: styles.icon, size: iconSize })
+          : null}
       {loading ? (
         <RiLoader4Fill size={22} className={styles.spinner} />
       ) : (
@@ -74,14 +75,14 @@ export const AlternativeLogin = () => {
   return (
     <>
       <div className={styles.alternativeLogin}>
-        <HeadLiner> Or Continue With </HeadLiner>
         <div className={styles.alternativeLoginButtons}>
           <Button
             onClick={async () => {
-              let res = await signIn("google", { callbackUrl: "/dashboard" , redirect: false});
-              if (res?.error) {
-                router.push("/login");
-              }
+              let res = await signIn("google", { callbackUrl: '/dashboard', redirect: false });
+
+              // if (res?.error) {
+              //   router.push("/login");
+              // }
             }}
           >
             <FcGoogle size={20} className={styles.icon} />

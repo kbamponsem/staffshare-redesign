@@ -30,7 +30,7 @@ export default function Login() {
       redirect: false,
     });
 
-    console.log(res)
+    console.log("Logging Response: ", res)
     if (res?.ok) {
       // Set session token
       router.push("/dashboard");
@@ -54,38 +54,12 @@ export default function Login() {
           onSubmit={handleLogin}
           title="Log In to Your StaffShare Account"
         >
-          <Input
-            value={email}
-            setValue={(e) => setEmail(e.target.value)}
-            title="Email/Username"
-            required
-            type="email"
-            placeholder="Enter your email or username"
-            wrapperStyle={inputStyle}
-          />
-          <Input
-            value={password}
-            setValue={(e) => setPassword(e.target.value)}
-            title="Password"
-            required={true}
-            type="password"
-            placeholder="Enter your password"
-            wrapperStyle={inputStyle}
-          />
-
-          <Button loading={loading} onClick={handleLogin}>
-            Login
-          </Button>
-
           <AlternativeLogin />
           <Already to="/register" linkText="Register now">
-            Don't have an account yet?
+            Don&apos;t have an account yet?
           </Already>
         </FormContainer>
       </main>
     </>
   );
 }
-const inputStyle = {
-  marginBottom: "1.2rem",
-};

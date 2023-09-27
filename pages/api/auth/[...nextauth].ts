@@ -8,7 +8,7 @@ export default NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || ""
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -24,7 +24,7 @@ export default NextAuth({
         });
 
 
-        console.log("res", res.data);
+        // console.log("res", res.data);
 
         if (res.status === 200) {
           const { email, id, access_token, username } = res.data.data;
@@ -43,22 +43,41 @@ export default NextAuth({
   secret: process.env.JWT_SECRET,
   callbacks: {
     async jwt({ token, user, account }) {
+      // console.log("{jwt}", token, user, account);
       if (account) {
         token.id = user.id;
         token.email = user.email;
-        token.access_token = user.access_token;
+        token.access_token = user as any;
+        token.provider = account.provider;
       }
       return { ...token, ...user };
     },
-    async session({ session, token, user }) {
-      console.log("{session}", session, token, user);
+    async session({ session, token }) {
+      console.log("session", session);
+      console.log("token", token);
       session.user = token;
       return session;
-    },
+    }
   },
   pages: {
     error: "/login",
-    signIn: "/login",
-    signOut: "/login",
+    signIn: "/server/login",
+    signOut: "/server/login",
   },
+  events: {
+    async signIn(message) {
+      // console.log("signIn", message);
+      // Extract user information from message
+      const { email, id } = message.user;
+      // Create or update user in database
+      const res = await connectAPI("/check_oauth_user_exists", "POST", {
+        email,
+        oauth_id: id,
+        provider: 'google',
+        username: ''
+      });
+
+      console.log("res", res);
+    }
+  }
 });

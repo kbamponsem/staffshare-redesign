@@ -161,7 +161,7 @@ export default function Popup({ opened, setOpened }: PopupProps) {
                     key_signature: "",
                     pdf: upload.fileUrl,
                   },
-                  data?.user?.access_token
+                  'Bearer ' + 'token'
                 );
 
                 setUploading(false);

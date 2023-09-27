@@ -10,7 +10,7 @@
   display: flex;
   flex: 0.1;
   border-bottom: 1px solid var(--form-border-color);
-  padding: 0.7rem 2.5rem;
+  padding: 0.7rem 2rem;
   align-items: center;
   justify-content: space-between;
   width: 100%;
@@ -37,14 +37,42 @@
   height: 100vh;
 }
 
-.leftPane, .bodySection {
-  padding: 0.8rem 1rem;
-}
 
 .leftPane {
   flex: 0.25;
   border-right: 1px solid var(--form-border-color);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
+
+.collapsedLeftPane {
+  flex: 0.05;
+  border-right: 1px solid var(--form-border-color);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.leftPaneFooter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  border-top: 1px solid var(--form-border-color);
+  width: 100%;
+  padding: 0.5rem 0.8rem;
+}
+
+.leftPaneFooter .collapseText {
+  font-size: 18px;
+}
+
+.leftPaneFooter .btn {
+  cursor: pointer;
+}
+
 .bodySection {
   flex: auto;
 }

@@ -1,4 +1,7 @@
 // Desc: Constants for the app
 
-// Base URL for the API
-export const BASE_URL = 'https://api.staffshare.co';
+const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/server` || 'http://localhost/server';
+
+export { BASE_URL };
+console.log('BASE_URL', BASE_URL);
+console.log('BASE_URL', BASE_URL);
