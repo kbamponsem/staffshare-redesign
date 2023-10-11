@@ -7,7 +7,6 @@ import Loader from "./__shared/loader";
 import { Document, Page, pdfjs } from "react-pdf";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-import { useState } from "react";
 const base64ToUint8Array = async (pdfString: string) => {
   const blob = await (await fetch(pdfString)).blob();
   const arrayBuffer = await blob.arrayBuffer();
@@ -16,12 +15,14 @@ const base64ToUint8Array = async (pdfString: string) => {
 };
 const fetcher = async ({
   url,
+  method = "POST",
   access_token,
 }: {
   url: string;
+  method?: string;
   access_token: string;
 }) => {
-  const res = await connectAPI(url, "GET", {}, access_token);
+  const res = await connectAPI(url, method, {}, access_token);
   console.log("Data", res.data);
   if (res.status === 200) {
     const sheets = await Promise.all(
@@ -46,12 +47,14 @@ const Empty = () => {
     </div>
   );
 };
-const Toolbar = () => { };
+
 export default function Sheets({ session }: { session: any }) {
+  console.log("Sheets: Session: ", session)
   const { data, error } = useSWR(
-    { url: "/sheets", access_token: session.user?.access_token },
+    { url: "/sheets", method: "GET", access_token: session.user?.id_token },
     fetcher
   );
+  console.log("Sheets: Data: ", data)
   if (error) return <Empty />;
   if (!data) return <Loader />;
   if (data && data.length === 0) return <Empty />;

@@ -12,7 +12,6 @@ import { headInfo } from ".";
 import Sheets from "./__sheets";
 import Image from "next/image";
 import { connectAPI } from "./api/services";
-import { getToken } from "next-auth/jwt";
 
 const DashboardSearchBar = ({ className }: { className: string }) => {
   return (
@@ -92,14 +91,16 @@ const DashboardHeader = ({
   setSmallOpened,
   opened,
   smallOpened,
+  session
 }: {
   opened: boolean;
   setOpened: (o: boolean) => any;
   smallOpened: boolean;
   setSmallOpened: (o: boolean) => any;
+  session: any;
 }) => {
-  const { data } = useSession();
-  console.log("Session", data);
+  const { user } = session;
+  console.log("DashboardHeader: Session: ", session)
   return (
     <div className={styles.dashboardHeader}>
       <div className={styles.logoSection}>
@@ -122,8 +123,8 @@ const DashboardHeader = ({
           onClick={() => {
             setSmallOpened(!smallOpened);
           }}
-          image={data?.user?.image as string}
-          username={data?.user?.name as string}
+          image={user?.image as string}
+          username={user?.name as string}
         />
         <SmallPopup opened={smallOpened} setOpened={setSmallOpened} />
       </div>
@@ -131,16 +132,17 @@ const DashboardHeader = ({
   );
 };
 
-export default function Dashboard() {
+export default function Dashboard({ session }: { session: any }) {
   const [openedUpload, setOpenedUpload] = React.useState(false);
   const [smallPopupOpened, setSmallPopupOpened] = React.useState(false);
   console.log(smallPopupOpened);
-  const session = useSession();
+
   return (
     <>
       {headInfo({ subinfo: "Sheets" })}
       <div className={styles.dashboard}>
         <DashboardHeader
+          session={session}
           smallOpened={smallPopupOpened}
           setSmallOpened={setSmallPopupOpened}
           opened={openedUpload}
@@ -167,14 +169,12 @@ export async function getServerSideProps(context: any) {
     };
   }
 
-  console.log("Session From Server", session)
-  // // Extract user information from message
   const email = session.user?.email;
-  const oauth_id = session.user?.id;
+  const id = session.user?.id;
   // Create or update user in database
-  const { status, data } = await connectAPI("/check_oauth_user_exists", "POST", {
+  const { status, data } = await connectAPI("/oauth/check", "POST", {
     email,
-    oauth_id
+    id
   });
 
   if (status === 200 && !data.data) {

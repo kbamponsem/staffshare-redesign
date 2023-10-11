@@ -78,7 +78,7 @@ export const AlternativeLogin = () => {
         <div className={styles.alternativeLoginButtons}>
           <Button
             onClick={async () => {
-              let res = await signIn("google", { callbackUrl: '/dashboard', redirect: false });
+              await signIn("google", { callbackUrl: '/dashboard', redirect: false });
 
               // if (res?.error) {
               //   router.push("/login");

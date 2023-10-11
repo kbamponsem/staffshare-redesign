@@ -19,7 +19,6 @@ export default function MainSection({
     <div className={styles.mainSection}>
       <div className={collapsed ? styles.collapsedLeftPane : styles.leftPane}>
         <div className={styles.leftPaneHeader}>
-          s
         </div>
 
         <div className={styles.leftPaneFooter}>

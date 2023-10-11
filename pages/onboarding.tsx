@@ -33,7 +33,7 @@ export default function Onboarding() {
         setShowPrompt(false);
         setLoading(true);
 
-        const res = await connectAPI('/create_oauth_user', 'POST', {
+        const res = await connectAPI('/oauth/create', 'POST', {
             oauth_id: data?.user?.id,
             name: data?.user?.name,
             email: data?.user?.email,

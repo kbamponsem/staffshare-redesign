@@ -7,6 +7,7 @@ export const connectAPI = async (
   body?: any,
   access_token?: string
 ) => {
+  console.log("Received: ", { url, method, body, access_token })
   try {
     let headers = {
       "Content-Type": "application/json",
