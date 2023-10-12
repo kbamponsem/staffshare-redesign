@@ -23,7 +23,6 @@ const fetcher = async ({
   access_token: string;
 }) => {
   const res = await connectAPI(url, method, {}, access_token);
-  console.log("Data", res.data);
   if (res.status === 200) {
     const sheets = await Promise.all(
       res.data.map(async (sheet: any) => {
@@ -49,20 +48,16 @@ const Empty = () => {
 };
 
 export default function Sheets({ session }: { session: any }) {
-  console.log("Sheets: Session: ", session)
   const { data, error } = useSWR(
     { url: "/sheets", method: "GET", access_token: session.user?.id_token },
     fetcher
   );
-  console.log("Sheets: Data: ", data)
   if (error) return <Empty />;
   if (!data) return <Loader />;
   if (data && data.length === 0) return <Empty />;
-  console.log(data);
   return (
     <div className="sheets-wrapper">
       {data.map((sheet: any, index: any) => {
-        console.log("Sheet", sheet);
         return <Sheet key={index} sheet={sheet} />;
       })}
     </div>
