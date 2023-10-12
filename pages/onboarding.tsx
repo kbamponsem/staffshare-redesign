@@ -9,10 +9,10 @@ import { useRouter } from 'next/router';
 import { use } from 'chai';
 import Prompt from './__components/prompt';
 
-export default function Onboarding() {
+export default function Onboarding({session}: any) {
     const { push } = useRouter();
-    const { data } = useSession();
-    const [username, setUsername] = useState(data?.user?.name as string);
+    const {user} = session;
+    const [username, setUsername] = useState(session?.user?.name as string);
     const [showPrompt, setShowPrompt] = useState(false);
     const [promptMessage, setPromptMessage] = useState('');
     const [promptType, setPromptType] = useState<'success' | 'error' | 'warning'>('success');
@@ -29,22 +29,27 @@ export default function Onboarding() {
         return true;
     }
     const handleEnjoy = async () => {
-        if (!validateInput()) return;
-        setShowPrompt(false);
-        setLoading(true);
+        try {
 
-        const res = await connectAPI('/oauth/create', 'POST', {
-            oauth_id: data?.user?.id,
-            name: data?.user?.name,
-            email: data?.user?.email,
-            username,
-            provider: data?.user?.provider,
-        })
+            if (!validateInput()) return;
+            setShowPrompt(false);
+            setLoading(true);
 
-        if (res.status === 200) {
+            const res = await connectAPI('/oauth/create', 'POST', {
+                id: user?.id,
+                name: user?.name,
+                email: user?.email,
+                username,
+                picture: user?.image,
+                provider: user?.provider,
+            })
+
+            if (res.status === 200) {
+                // redirect to dashboard
+                push('/dashboard');
+            }
+        } catch (e) {
             setLoading(false);
-            // redirect to dashboard
-            push('/dashboard');
         }
     }
 
@@ -57,13 +62,13 @@ export default function Onboarding() {
                         marginLeft: "0.2rem",
                     }} /></h1>
 
-                    <p ><b>{data?.user?.name}
+                    <p ><b>{user?.name}
                     </b>, the StaffShare family is thrilled to have you join.</p>
 
                     <p>Let's get you started with a few steps.</p>
 
                     <div>
-                        <p>StaffShare.io</p>
+                        <p>StaffShare.co</p>
                         <p className={`${styles.center} light-grey`}>Made with Love from Paris ❤️</p>
                     </div>
                 </div>
@@ -79,7 +84,7 @@ export default function Onboarding() {
                         title='Username'
                         required
                         wrapperStyle={{ width: '18rem' }}
-                        value={username as string}
+                        value={username}
                         setValue={(e) => setUsername(e.target.value)}
 
                     />

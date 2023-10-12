@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { connectAPI } from "../services";
-console.log("process.env.GOOGLE_CLIENT_ID", process.env.GOOGLE_CLIENT_ID);
+
 export default NextAuth({
   // Configure one or more authentication providers
   providers: [
@@ -14,7 +13,6 @@ export default NextAuth({
   secret: process.env.JWT_SECRET,
   callbacks: {
     async jwt({ token, account, user }) {
-      console.log("{jwt}", token, user, account);
       if (account) {
         token.id = user.id;
         token.email = user.email;
@@ -25,8 +23,6 @@ export default NextAuth({
       return { ...token, ...user };
     },
     async session({ session, token }) {
-      console.log("session", session);
-      console.log("token", token);
       session.user = token;
       return session;
     }

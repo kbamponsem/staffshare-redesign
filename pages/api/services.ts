@@ -1,13 +1,11 @@
 import axios from "axios";
 import { BASE_URL } from "../__shared/constants";
-console.log('BASE_URL', BASE_URL);
 export const connectAPI = async (
   url: string,
   method: string,
   body?: any,
   access_token?: string
 ) => {
-  console.log("Received: ", { url, method, body, access_token })
   try {
     let headers = {
       "Content-Type": "application/json",
@@ -26,8 +24,6 @@ export const connectAPI = async (
       headers,
       timeout: 5000,
     };
-
-    console.log("Request: ", request)
 
     const response = await axios(request);
     return { status: response.status, data: response.data };

@@ -26,6 +26,7 @@ const DashboardSearchBar = ({ className }: { className: string }) => {
       inputStyle={{ width: "100%", backgroundColor: "#272727" }}
       icon={FaSearch}
       type={"text"}
+      value={""}
       className={className}
       placeholder={"Search for sheet music"}
     />
@@ -41,19 +42,23 @@ export const Avatar = ({
   username?: string;
   onClick?: () => any;
 }) => {
+  const firstname = username?.split(" ")[0];
   return (
-    <div id="avatar" onClick={onClick} className={"avatar"}>
-      {image ? (
-        <Image
-          width={40}
-          height={40}
-          style={{ borderRadius: "50%" }}
-          src={image}
-          alt="Avatar"
-        />
-      ) : (
-        <div>{username?.charAt(0).toUpperCase()}</div>
-      )}
+    <div className="avatar-wrapper" onClick={onClick}>
+      <div id="avatar" className={"avatar"}>
+        {image ? (
+          <Image
+            width={40}
+            height={40}
+            style={{ borderRadius: "50%" }}
+            src={image}
+            alt="Avatar"
+          />
+        ) : (
+          <div>{username?.charAt(0).toUpperCase()}</div>
+        )}
+      </div>
+      <p className="text">Hi, {firstname}</p>
     </div>
   );
 };
@@ -100,7 +105,6 @@ const DashboardHeader = ({
   session: any;
 }) => {
   const { user } = session;
-  console.log("DashboardHeader: Session: ", session)
   return (
     <div className={styles.dashboardHeader}>
       <div className={styles.logoSection}>
@@ -124,6 +128,7 @@ const DashboardHeader = ({
             setSmallOpened(!smallOpened);
           }}
           image={user?.image as string}
+
           username={user?.name as string}
         />
         <SmallPopup opened={smallOpened} setOpened={setSmallOpened} />
@@ -135,7 +140,6 @@ const DashboardHeader = ({
 export default function Dashboard({ session }: { session: any }) {
   const [openedUpload, setOpenedUpload] = React.useState(false);
   const [smallPopupOpened, setSmallPopupOpened] = React.useState(false);
-  console.log(smallPopupOpened);
 
   return (
     <>

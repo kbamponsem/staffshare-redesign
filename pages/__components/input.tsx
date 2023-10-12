@@ -7,7 +7,7 @@ type InputProps = {
   required?: boolean;
   title?: string;
   props?: any;
-  value?: string | undefined;
+  value: string;
   noTitle?: boolean;
   setValue?: (e: any) => void;
   icon?: IconType | null;

@@ -6,6 +6,7 @@
   background-color: var(--primary-background);
   flex: 1;
 }
+
 .dashboardHeader {
   display: flex;
   flex: 0.1;

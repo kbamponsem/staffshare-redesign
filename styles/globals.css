@@ -1,3 +1,4 @@
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
@@ -15,6 +16,21 @@
   --prompt-background-color: #323232;
   --grey-background: #272727;
   --mobile-max-width: 700px;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 .light-grey {
@@ -48,10 +64,8 @@ a {
 }
 
 .avatar {
-  max-width: 40px;
-  max-height: 40px;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   border: 1px solid var(--form-border-color);
   display: flex;
@@ -59,6 +73,23 @@ a {
   align-items: center;
   font-size: x-large;
   cursor: pointer;
+}
+
+.avatar-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.avatar-wrapper:hover {
+  opacity: 0.8;
+}
+
+.avatar-wrapper .text {
+  font-weight: 500;
+  font-size: 18px;
+  margin-left: 1rem;
 }
 
 .popup {
