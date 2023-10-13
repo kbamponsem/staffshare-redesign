@@ -49,7 +49,6 @@ export default function Register() {
       username,
     });
 
-    console.log("Results", res);
     if (res.status === 200) {
       // Redirect to confirmation page
       router.push(`/confirmation?email=${email}`);
