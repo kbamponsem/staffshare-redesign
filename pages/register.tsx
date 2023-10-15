@@ -1,8 +1,9 @@
 import FormContainer from "./__components/form_container";
 import styles from "../styles/Commons.module.css";
-import Button, { Already, AlternativeLogin } from "./__components/button";
+import { AlternativeLogin } from "./__alternativelogin";
+import { Already } from './__components/button'
+import Button from './__components/button';
 import Input from "./__components/input";
-import Link from "next/link";
 import { useState } from "react";
 import { connectAPI } from "./api/services";
 import { useRouter } from "next/router";
