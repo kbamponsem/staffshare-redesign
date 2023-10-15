@@ -1,5 +1,5 @@
 import styles from "../styles/Commons.module.css";
-import Button, { Already, AlternativeLogin } from "./__components/button";
+import { AlternativeLogin } from "./__alternativelogin";
 import FormContainer from "./__components/form_container";
 import Input from "./__components/input";
 import { useState } from "react";
@@ -54,9 +54,6 @@ export default function Login() {
           title="Log In to Your StaffShare Account"
         >
           <AlternativeLogin />
-          <Already to="/register" linkText="Register now">
-            Don&apos;t have an account yet?
-          </Already>
         </FormContainer>
       </main>
     </>

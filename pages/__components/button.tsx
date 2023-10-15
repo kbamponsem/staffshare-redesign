@@ -1,9 +1,5 @@
 import Link from "next/link";
 import styles from "../../styles/Commons.module.css";
-import { FcGoogle } from "react-icons/fc";
-import { SiMusescore } from "react-icons/si";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/router";
 import { RiLoader4Fill } from "react-icons/ri";
 import { IconType } from "react-icons";
 
@@ -69,34 +65,6 @@ const HeadLiner = ({ children }: HeadLinerProps) => {
   );
 };
 
-// Or section which contains alternative login for Google and MuseScore
-export const AlternativeLogin = () => {
-  const router = useRouter();
-  return (
-    <>
-      <div className={styles.alternativeLogin}>
-        <div className={styles.alternativeLoginButtons}>
-          <Button
-            onClick={async () => {
-              await signIn("google", { callbackUrl: '/dashboard', redirect: false });
-
-              // if (res?.error) {
-              //   router.push("/login");
-              // }
-            }}
-          >
-            <FcGoogle size={20} className={styles.icon} />
-            <div>Google</div>
-          </Button>
-          <Button>
-            <SiMusescore size={20} className={styles.icon} />
-            <div>MuseScore</div>
-          </Button>
-        </div>
-      </div>
-    </>
-  );
-};
 
 type AlreadyProps = {
   children: React.ReactNode | string;
