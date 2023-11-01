@@ -1,0 +1,12 @@
+.sheet {
+    /* set width and height to standard a4 in potrait scaled down 0.35 */
+    width: 595px;
+    height: 842px;
+}
+
+.sheetsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+}
