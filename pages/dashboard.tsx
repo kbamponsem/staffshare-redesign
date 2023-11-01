@@ -12,6 +12,7 @@ import { headInfo } from ".";
 import Sheets from "./__sheets";
 import Image from "next/image";
 import { connectAPI } from "./api/services";
+import { Session } from "next-auth";
 
 const DashboardSearchBar = ({ className }: { className: string }) => {
   return (
@@ -137,7 +138,7 @@ const DashboardHeader = ({
   );
 };
 
-export default function Dashboard({ session }: { session: any }) {
+export default function Dashboard({ session }: { session: Session }) {
   const [openedUpload, setOpenedUpload] = React.useState(false);
   const [smallPopupOpened, setSmallPopupOpened] = React.useState(false);
 
@@ -155,7 +156,7 @@ export default function Dashboard({ session }: { session: any }) {
         <MainSection>
           <Sheets session={session} />
         </MainSection>
-        <Popup opened={openedUpload} setOpened={setOpenedUpload} />
+        <Popup opened={openedUpload} setOpened={setOpenedUpload} session={session} />
       </div>
     </>
   );

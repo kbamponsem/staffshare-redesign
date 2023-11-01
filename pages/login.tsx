@@ -4,7 +4,7 @@ import FormContainer from "./__components/form_container";
 import Input from "./__components/input";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { signIn } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
 import { headInfo } from ".";
 
 export default function Login() {
@@ -58,4 +58,21 @@ export default function Login() {
       </main>
     </>
   );
+}
+
+export async function getServerSideProps(context: any) {
+  const session = await getSession(context);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  }
 }

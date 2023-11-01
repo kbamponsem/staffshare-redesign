@@ -1,8 +1,5 @@
-import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
-import Button from "./__components/button";
 import styles from "../styles/Dashboard.module.css";
-import Logo from "./__components/logo";
 import { TbLayoutSidebarLeftCollapseFilled, TbLayoutSidebarRightCollapseFilled } from 'react-icons/tb'
 
 export default function MainSection({
@@ -10,7 +7,6 @@ export default function MainSection({
 }: {
   children: React.ReactNode | string;
 }) {
-  const { data } = useSession();
   const [collapsed, setCollapsed] = useState(false);
   const collapse = () => {
     setCollapsed(!collapsed);

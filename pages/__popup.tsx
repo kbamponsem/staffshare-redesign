@@ -6,20 +6,22 @@ import { set } from "cypress/types/lodash";
 import { connectAPI } from "./api/services";
 import { useSession } from "next-auth/react";
 import { getToken } from "next-auth/jwt";
+import { Session } from "next-auth";
 
 type PopupProps = {
   opened: boolean;
   setOpened: (opened: boolean) => void;
+  session: Session;
 };
 
 type UploadObject = {
   title: string;
-  subtitle: string;
+  description: string;
   composer: string;
   file: File | null;
   fileUrl?: string;
 };
-export default function Popup({ opened, setOpened }: PopupProps) {
+export default function Popup({ opened, setOpened, session }: PopupProps) {
   const [promptMessage, setPromptMessage] = useState("");
   const [showPrompt, setShowPrompt] = useState(false);
   const [promptType, setPromptType] = useState<"success" | "error" | "warning">(
@@ -27,7 +29,7 @@ export default function Popup({ opened, setOpened }: PopupProps) {
   );
   const [upload, setUpload] = useState<UploadObject>({
     title: "",
-    subtitle: "",
+    description: "",
     composer: "",
     file: null,
     fileUrl: "",
@@ -92,9 +94,9 @@ export default function Popup({ opened, setOpened }: PopupProps) {
           placeholder="The Lord is My Shepherd"
         />
         <Input
-          value={upload.subtitle}
-          setValue={handleChange("subtitle")}
-          title="Subtitle"
+          value={upload.description}
+          setValue={handleChange("description")}
+          title="Description"
           type="text"
           placeholder="Psalm 23"
         />
@@ -147,29 +149,30 @@ export default function Popup({ opened, setOpened }: PopupProps) {
             setShowPrompt(false);
             if (validateUploade()) {
               // Convert file to base64
-
               try {
-                let result = await connectAPI(
-                  "/add_sheet",
+                await connectAPI(
+                  "/sheets/add",
                   "POST",
                   {
+                    sheet_id: upload.title + '-' + upload.composer + '-' + data?.user.name,
                     title: upload.title,
-                    subtitle: upload.subtitle,
+                    description: upload.description,
                     composer: upload.composer,
                     uploaded_by: data?.user?.name,
                     time_signature: "",
                     key_signature: "",
                     pdf: upload.fileUrl,
+                    data_url: null,
+                    created_at: null,
+                    updated_at: null,
                   },
-                  'Bearer ' + 'token'
+                  session.user.id_token
                 );
 
                 setUploading(false);
                 setPromptMessage("Sheet music uploaded successfully");
                 setShowPrompt(true);
                 setPromptType("success");
-
-                setOpened(false);
               } catch (e: any) {
                 console.log(e);
                 setUploading(false);

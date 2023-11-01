@@ -1,10 +1,11 @@
-import { getSession, useSession } from "next-auth/react";
 import { connectAPI } from "./api/services";
 import useSWR from "swr";
 import Image from "next/image";
 import NoSheets from "../images/empty_sheets.svg";
 import Loader from "./__shared/loader";
 import { Document, Page, pdfjs } from "react-pdf";
+import styles from '../styles/Sheet.module.css'
+
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const base64ToUint8Array = async (pdfString: string) => {
@@ -22,19 +23,19 @@ const fetcher = async ({
   method?: string;
   access_token: string;
 }) => {
-  const res = await connectAPI(url, method, {}, access_token);
-  if (res.status === 200) {
+  try {
+
+    const { data } = await connectAPI(url, method, {}, access_token);
     const sheets = await Promise.all(
-      res.data.map(async (sheet: any) => {
+      data.data.map(async (sheet: any) => {
         const pdf = await base64ToUint8Array(sheet.pdf);
         return { ...sheet, pdf };
-      })
-    );
+      }))
     return sheets;
-  } else {
+  } catch (error) {
     throw new Error("Failed to fetch sheets");
   }
-};
+}
 const Empty = () => {
   return (
     <div className="no-sheet">
@@ -52,11 +53,13 @@ export default function Sheets({ session }: { session: any }) {
     { url: "/sheets", method: "GET", access_token: session.user?.id_token },
     fetcher
   );
+  console.log("Sheets", data)
   if (error) return <Empty />;
   if (!data) return <Loader />;
   if (data && data.length === 0) return <Empty />;
+
   return (
-    <div className="sheets-wrapper">
+    <div className={styles.sheetsWrapper}>
       {data.map((sheet: any, index: any) => {
         return <Sheet key={index} sheet={sheet} />;
       })}
@@ -74,10 +77,10 @@ const EmptySheet = () => {
 
 const Sheet = ({ sheet }: { sheet: any }) => {
   return (
-    <div>
-      <div>
+    <div className={styles.sheet}>
+      <div className={styles.pdf}>
         <Document
-          renderMode="svg"
+          renderMode="canvas"
           file={{
             data: sheet.pdf,
           }}
@@ -90,12 +93,14 @@ const Sheet = ({ sheet }: { sheet: any }) => {
             renderTextLayer={false}
             renderAnnotationLayer={false}
             className={"sheet"}
+            height={500}
+            width={500}
           />
         </Document>
       </div>
-      <div>
+      <div className={styles.textSection}>
         <p>{sheet.title}</p>
-        <p>{sheet.subtitle}</p>
+        <p>{sheet.description}</p>
       </div>
     </div>
   );
